@@ -41,7 +41,7 @@ double Shape::area(){
 bool Shape::isConvex(){ //https://pastebin.com/4ZnHu22Z old code
     bool convex = true;
 
-    //Compute center point
+    //Beräkna centrumpunkt i polygon med medelvärde
     double centerX = 0;
     double centerY = 0;
 
@@ -54,7 +54,7 @@ bool Shape::isConvex(){ //https://pastebin.com/4ZnHu22Z old code
     centerX = cXS / p;
     centerY = cYS / p;
 
-    //Verify resulting points
+    //Kontrollera alla punkter
     for (int i = 0; i < p; i++) {
 		//Hämta närliggande index
 		int iXH = 0; //Index ovanför vårt X
@@ -70,21 +70,25 @@ bool Shape::isConvex(){ //https://pastebin.com/4ZnHu22Z old code
 			iXL = i + 1;
 		}
 		
-        //Fastställ alla punkter i triangeln
-        double aX = pX[iXH];
+        //Fastställ alla punkter i triangeln den utvalda triangeln
+        //Grannpunkt
+        double aX = pX[iXH]; 
         double aY = pY[iXH];
+        //Denna punkt
         double bX = pX[i];
         double bY = pY[i];
+        //Grannpunkt
         double cX = pX[iXL];
 		double cY = pY[iXL];
 
+        //Medelpunkt i triangeln
         double mX = (aX + cX + bX) / 3;
         double mY = (aY + cY + bY) / 3;
         
-        double lOut = sqrt(pow(centerX-mX,2)+pow(centerY-mY,2));
-        double pOrigin = sqrt(pow(centerX-bX,2)+pow(centerY-bY,2));
+        double lOut = sqrt(pow(centerX-mX,2)+pow(centerY-mY,2)); //Längd från medelpunkt i triangeln till mitten
+        double pOrigin = sqrt(pow(centerX-bX,2)+pow(centerY-bY,2)); //Längd från denna punkt till mitten
 
-        cout << "C{" << centerX << "," << centerY << "} | L: " << lOut << ", O: " << pOrigin << endl;
+        //cout << "C{" << centerX << "," << centerY << "} | L: " << lOut << ", O: " << pOrigin << endl; //Lite debugging
 
         if(lOut > pOrigin)
             convex = false;
