@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
-
+#include <string>
+#include "Shape.h"
 /**
  * The program reads numbers from a file and prints the sum of them
  * Example: main.exe ./tests/input.in
@@ -14,54 +15,42 @@ double* addToArray(double* array, int bufferSize, double value);
 
 int main(int argc, const char * argv[])
 {
+    double a = 0;
+    int c = 1;
+    int xBufferSize = 0;
+	double* xBuffer = { 0 };
+	int yBufferSize = 0;
+	double* yBuffer = { 0 };
 
+    ifstream myReadFile;
 
-    //Program should be compatible with negative values
+    myReadFile.open(argv[1]);
 
+    while (myReadFile >> a)
+    {   
+        a = (int)(a * 1000 + .5); 
+        a = a / 1000;
+        if (c % 2 == 0) {
+			//Fyll på i Y
+			yBuffer = addToArray(yBuffer, yBufferSize, a);
+			yBufferSize++;
+		}else {
+			//Fyll på i X
+			xBuffer = addToArray(xBuffer, xBufferSize, a);
+			xBufferSize++;
+		}
+		c++;
+    }    
+    myReadFile.close();
 
-    if(argc >= 2){ //Error handling
-        double a = 0;
-        double sum = 0;
-        double avg = 0;
-        int bufferSize = 0;
-        double* buffer;
+    Shape basic(xBuffer, yBuffer, xBufferSize);
 
-        ifstream myReadFile;
+    cout << basic.area() << endl;
 
-        myReadFile.open(argv[1]);
+    bool jes = basic.isConvex();
 
-        if(myReadFile.is_open()){ //Error handling
-            while (myReadFile >> a)
-            {   
-                a = (int)(a * 1000 + .5); 
-                a = a / 1000;
+    cout << jes << endl;
 
-                buffer = addToArray(buffer, bufferSize, a);
-                bufferSize++;
-
-                sum += a;
-            }
-            myReadFile.close();
-            
-            if(!(bufferSize == 0 || sum == 0)){ //Error handling
-                avg = sum / (double)bufferSize;
-
-                for(int i = 0; i < bufferSize; i++){
-                    if(buffer[i] > avg){
-                        cout << buffer[i] << " "; 
-                    }
-                }
-
-            }else{ //The file contents contained a invalid format
-                cout << 0 << endl;
-            }
-        }else{ //The file were not correctly read
-            cout << "File Error" << endl;
-        }
-    }else{ //Not enough initial parameters
-        cout << "Error" << endl;
-    }
-    return 0;
 }
 
 double* addToArray(double* array, int bufferSize, double value){
