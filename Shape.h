@@ -38,6 +38,31 @@ class Shape{
             //Return
             return *this;
         }
+
+        const Shape operator+(const Shape &rhs){
+            //Perform addition
+
+            //Copy attributes
+	        this->p = rhs.p;
+            //Copy vertices
+            double* tpX = new double[rhs.p + p];
+            double* tpY = new double[rhs.p + p];
+            for(int cpy = 0; cpy < (rhs.p + p);cpy++){
+                tpX[cpy] = rhs.pX[cpy];
+                tpY[cpy] = rhs.pY[cpy];
+            }
+            delete[] pX;
+            delete[] pY;
+            pX = nullptr;
+            pY = nullptr;
+            pX = tpX;
+            pY = tpY;
+
+            //Return
+            return *this;
+        }
+
+
     private:
         int p;
         double* pX;
