@@ -43,13 +43,15 @@ int main(int argc, const char * argv[])
     }    
     myReadFile.close();
 
+    //GÖR FELSÄKERT SYSTEM
+
     Shape basic(xBuffer, yBuffer, xBufferSize);
 
-    cout << basic.area() << endl;
+    Shape b2(xBuffer, yBuffer, xBufferSize);
 
-    bool jes = basic.isConvex();
+    basic = b2;
 
-    cout << jes << endl;
+    cout << basic.area()<< endl;
 
 }
 
