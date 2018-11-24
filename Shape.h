@@ -1,72 +1,32 @@
 #include <string>
 #include <iostream>
+#include "Point.h"
 #ifndef SHAPE_H
 #define SHAPE_H
 
 
 class Shape{
     public:
-        Shape(double* x, double* y, int points);
+        //Constructors
+        Shape();
+        Shape(Point* pnts, int count);
+        
+        //Extended methods
         std::string getType();
         double area();
         double circumference();
-        //position()
+        Point position();
         bool isConvex();
-        double distance(Shape s);
+        double distance(const Shape s);
 
-        const Shape operator=(const Shape &rhs){
-            if (this == &rhs) return *this;
-
-            //Perform deep copy
-
-            //Copy attributes
-	        this->p = rhs.p;
-            //Copy vertices
-            double* tpX = new double[rhs.p];
-            double* tpY = new double[rhs.p];
-            for(int cpy = 0; cpy < rhs.p;cpy++){
-                tpX[cpy] = rhs.pX[cpy];
-                tpY[cpy] = rhs.pY[cpy];
-            }
-            delete[] pX;
-            delete[] pY;
-            pX = nullptr;
-            pY = nullptr;
-            pX = tpX;
-            pY = tpY;
-
-            //Return
-            return *this;
-        }
-
-        const Shape operator+(const Shape &rhs){
-            //Perform addition
-
-            //Copy attributes
-	        this->p = rhs.p;
-            //Copy vertices
-            double* tpX = new double[rhs.p + p];
-            double* tpY = new double[rhs.p + p];
-            for(int cpy = 0; cpy < (rhs.p + p);cpy++){
-                tpX[cpy] = rhs.pX[cpy];
-                tpY[cpy] = rhs.pY[cpy];
-            }
-            delete[] pX;
-            delete[] pY;
-            pX = nullptr;
-            pY = nullptr;
-            pX = tpX;
-            pY = tpY;
-
-            //Return
-            return *this;
-        }
-
-
+        //Getters and setters
+        Point* getPoints();
+        void setPoints(Point* pnts);
+        int getNumberOfVertices();
+        void setNumberOfVertices(int v);
     private:
         int p;
-        double* pX;
-        double* pY;
+        Point* points;
 };
 
 #endif

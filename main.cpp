@@ -1,75 +1,65 @@
 #include <iostream>
 #include <fstream>
+#include <cmath>
 #include <string>
+
 #include "Shape.h"
-/**
- * The program reads numbers from a file and prints the sum of them
- * Example: main.exe ./tests/input.in
- * @param  argc [description]
- * @param  argv [description]
- * @return      [description]
- */
+#include "Triangle.h"
+#include "Line.h"
+#include "Polygon.h"
+
 using namespace std;
 
-double* addToArray(double* array, int bufferSize, double value);
+Point* addToArray(Point* array, int bufferSize, Point value);
 
 int main(int argc, const char * argv[])
 {
     double a = 0;
     int c = 1;
-    int xBufferSize = 0;
-	double* xBuffer = { 0 };
-	int yBufferSize = 0;
-	double* yBuffer = { 0 };
+    int p = 0;
+	Point* buffer = { 0 };
+    Point cPnt;
 
     ifstream myReadFile;
-
     myReadFile.open(argv[1]);
 
     while (myReadFile >> a)
     {   
         a = (int)(a * 1000 + .5); 
         a = a / 1000;
+
         if (c % 2 == 0) {
-			//Fyll på i Y
-			yBuffer = addToArray(yBuffer, yBufferSize, a);
-			yBufferSize++;
+			//Append to Y
+            cPnt.setY(a);
+			buffer = addToArray(buffer, p, cPnt);
+			p++;
+
 		}else {
-			//Fyll på i X
-			xBuffer = addToArray(xBuffer, xBufferSize, a);
-			xBufferSize++;
+			//Append to X
+			cPnt = Point(a,0);
 		}
 		c++;
     }    
     myReadFile.close();
 
-    //GÖR FELSÄKERT SYSTEM
-
-    Shape basic(xBuffer, yBuffer, xBufferSize);
-
-    Shape b2(xBuffer, yBuffer, xBufferSize);
-
-    basic = b2;
-
-    cout << basic.area()<< endl;
+    //Usage of classes
+    Polygon thisShape(buffer, p);
+    cout << thisShape.area() << endl;
 
 }
 
-double* addToArray(double* array, int bufferSize, double value){
+Point* addToArray(Point* array, int bufferSize, Point value){
     if(array == nullptr){
         //If array is empty, create first slot and add the value
-        return new double[1] {value};
+        return new Point[1] {value};
     }else{
-        double* buffer = new double[bufferSize + 1];
+        Point* buffer = new Point[bufferSize + 1];
         
         for(int i = 0; i < bufferSize; i++){
             buffer[i] = array[i];
         }
         buffer[bufferSize] = value;
         
-        
-        //Array should probably be deleted
-
         return buffer;
     }
 }
