@@ -70,6 +70,10 @@ double Shape::area(){
 	    a = 0.5 * abs(cSum); //Beräkna arean
         a = round(a * 1000); 
         a = a / 1000;
+
+        if(a == 0)
+            a = -1;
+
     }
 	return a;
 }
@@ -113,8 +117,6 @@ bool Shape::isConvex(){ //https://pastebin.com/4ZnHu22Z old code
         
         double lOut = sqrt(pow(center.getX()-mX,2)+pow(center.getY()-mY,2)); //Längd från medelpunkt i triangeln till mitten
         double pOrigin = sqrt(pow(center.getX()-bX,2)+pow(center.getY()-bY,2)); //Längd från denna punkt till mitten
-
-        //cout << "C{" << centerX << "," << centerY << "} | L: " << lOut << ", O: " << pOrigin << endl; //Lite debugging
 
         if(lOut > pOrigin)
             convex = false;
