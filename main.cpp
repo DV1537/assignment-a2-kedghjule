@@ -48,8 +48,12 @@ int main(int argc, const char * argv[])
 
         //Usage of classes
         Polygon thisShape(buffer, p);
+        
+        cout << thisShape.getType() << endl;
         cout << thisShape.area() << endl;
-
+        cout << thisShape.circumference() << endl;
+        cout << thisShape.position() << endl;
+        cout << thisShape.isConvex() << endl;
 
     }
 
