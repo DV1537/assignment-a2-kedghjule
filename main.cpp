@@ -23,7 +23,7 @@ int main(int argc, const char * argv[])
     ifstream myReadFile;
     myReadFile.open(argv[1]);
 
-    if(myReadFile.is_open() == false || argc < 2){
+    if(myReadFile.is_open() == false){
         return EXIT_FAILURE;
     }else{
         while (myReadFile >> a)
@@ -56,7 +56,6 @@ int main(int argc, const char * argv[])
         cout << thisShape.isConvex() << endl;
 
     }
-
     return 0;
 
 }
@@ -73,6 +72,8 @@ Point* addToArray(Point* array, int bufferSize, Point value){
         }
         buffer[bufferSize] = value;
         
+		delete[] array;
+
         return buffer;
     }
 }

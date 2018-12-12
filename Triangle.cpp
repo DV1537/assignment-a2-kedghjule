@@ -25,7 +25,9 @@ Triangle::Triangle(Point p1, Point p2, Point p3){
     points[2] = p3;
     p = 3;
 }
-
+Triangle::~Triangle(){
+    delete[] points;
+}
 std::string Triangle::getType(){
     return "Triangle";
 }
